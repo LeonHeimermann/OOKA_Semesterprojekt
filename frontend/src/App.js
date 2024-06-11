@@ -1,5 +1,6 @@
 import './App.css';
 import OptionalEquipment from "./components/OptionalEquipment";
+import Microservice from "./components/Microservice";
 
 const optionalEqipment = [
     { name: "Starting system", choices: ["Air starter"] },
@@ -13,6 +14,14 @@ const optionalEqipment = [
     { name: "Monitoring/Control System", choices: ["BlueVision|New Generation"] },
     { name: "Power Transmission", choices: ["Torsionally resilient coupling"] },
     { name: "Gearbox Options", choices: ["Reverse reduction gearbox", "el. actuated", "gearbox mounts", "trolling mode for dead-slow propulsion", "free auxiliary PTO", "hydraulic pump drives"] },
+];
+
+const microservices = [
+    { name: "Engine Systems" },
+    { name: "Power Transmission" },
+    { name: "Control Systems" },
+    { name: "Auxiliary Systems" },
+    { name: "Mounting Systems" }
 ];
 
 function App() {
@@ -29,6 +38,20 @@ function App() {
             <tbody>
                 {optionalEqipment.map((option, index) => (
                     <OptionalEquipment name={option.name} choices={option.choices} key={option.name} />
+                ))}
+            </tbody>
+        </table>
+
+        <table className="table is-striped is-fullwidth">
+            <thead>
+                <tr>
+                    <th>Microservice</th>
+                    <th className="is-narrow has-text-centered">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {microservices.map((microservice, index) => (
+                    <Microservice name={microservice.name} key={microservice.name} />
                 ))}
             </tbody>
         </table>
