@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ms-control-systems" />
         <module name="ms-auxiliary-systems" />
+        <module name="ms-power-transmission" />
         <module name="ms-mounting-systems" />
         <module name="ms-engine-systems" />
       </profile>
@@ -19,6 +20,7 @@
       <module name="ms-control-systems" options="-parameters" />
       <module name="ms-engine-systems" options="-parameters" />
       <module name="ms-mounting-systems" options="-parameters" />
+      <module name="ms-power-transmission" options="-parameters" />
     </option>
   </component>
 </project>
