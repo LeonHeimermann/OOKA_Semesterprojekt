@@ -2,7 +2,7 @@ import './App.css';
 import OptionalEquipment from "./components/OptionalEquipment";
 import Microservice from "./components/Microservice";
 
-const optionalEqipment = [
+const optionalEquipment = [
     { name: "Starting system", choices: ["Air starter"] },
     { name: "Auxiliary PTO", choices: ["Alternator", "140A or 190A", "28V", "2 pole", "bilgepump", "on-engine PTOs"] },
     { name: "Oil System", choices: ["Oil replenishment system", "diverter valve for duplex system"] },
@@ -17,11 +17,11 @@ const optionalEqipment = [
 ];
 
 const microservices = [
-    { name: "Engine Systems" },
-    { name: "Power Transmission" },
-    { name: "Control Systems" },
-    { name: "Auxiliary Systems" },
-    { name: "Mounting Systems" }
+    { name: "Engine Systems", url: "http://localhost:8082" },
+    { name: "Power Transmission", url: "http://localhost:8084" },
+    { name: "Control Systems", url: "http://localhost:8081" },
+    { name: "Auxiliary Systems", url: "http://localhost:8080" },
+    { name: "Mounting Systems", url: "http://localhost:8083" }
 ];
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
                 </tr>
             </thead>
             <tbody>
-                {optionalEqipment.map((option, index) => (
+                {optionalEquipment.map((option, index) => (
                     <OptionalEquipment name={option.name} choices={option.choices} key={option.name + index} />
                 ))}
             </tbody>
@@ -64,7 +64,7 @@ function App() {
             </thead>
             <tbody>
                 {microservices.map((microservice, index) => (
-                    <Microservice name={microservice.name} key={microservice.name + index} />
+                    <Microservice name={microservice.name} serviceUrl={microservice.url} key={microservice.name + index} />
                 ))}
             </tbody>
         </table>
