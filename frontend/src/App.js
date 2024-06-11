@@ -37,21 +37,34 @@ function App() {
             </thead>
             <tbody>
                 {optionalEqipment.map((option, index) => (
-                    <OptionalEquipment name={option.name} choices={option.choices} key={option.name} />
+                    <OptionalEquipment name={option.name} choices={option.choices} key={option.name + index} />
                 ))}
             </tbody>
+            <tfoot>
+                <tr>
+                    <td className="is-size-5">
+                        <button className="button is-primary">Start</button>
+                    </td>
+                    <td className="is-size-5 has-text-right">
+                        Result
+                    </td>
+                    <td>
+                        <span className="tag is-large">...</span>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
 
-        <table className="table is-striped is-fullwidth">
-            <thead>
-                <tr>
-                    <th>Microservice</th>
-                    <th className="is-narrow has-text-centered">Status</th>
-                </tr>
+          <table className="table is-striped is-fullwidth">
+              <thead>
+              <tr>
+                  <th>Microservice</th>
+                  <th className="is-narrow has-text-centered">Status</th>
+              </tr>
             </thead>
             <tbody>
                 {microservices.map((microservice, index) => (
-                    <Microservice name={microservice.name} key={microservice.name} />
+                    <Microservice name={microservice.name} key={microservice.name + index} />
                 ))}
             </tbody>
         </table>
