@@ -17,11 +17,11 @@ const optionalEquipment = [
 ];
 
 const microservices = [
-    { name: "Engine Systems", url: "http://localhost:8082" },
-    { name: "Power Transmission", url: "http://localhost:8084" },
-    { name: "Control Systems", url: "http://localhost:8081" },
-    { name: "Auxiliary Systems", url: "http://localhost:8080" },
-    { name: "Mounting Systems", url: "http://localhost:8083" }
+    { name: "Engine Systems" },
+    { name: "Power Transmission" },
+    { name: "Control Systems" },
+    { name: "Auxiliary Systems" },
+    { name: "Mounting Systems" }
 ];
 
 function App() {
@@ -64,7 +64,7 @@ function App() {
             </thead>
             <tbody>
                 {microservices.map((microservice, index) => (
-                    <Microservice name={microservice.name} serviceUrl={microservice.url} key={microservice.name + index} />
+                    <Microservice name={microservice.name} key={microservice.name + index} />
                 ))}
             </tbody>
         </table>

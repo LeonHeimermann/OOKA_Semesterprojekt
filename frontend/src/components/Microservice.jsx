@@ -6,22 +6,8 @@ const State = {
     Unavailable: "Unavailable",
 }
 
-export default function Microservice({name, serviceUrl}) {
+export default function Microservice({name}) {
     const [state, setState] = React.useState(State.Unknown);
-
-    React.useEffect(() => {
-        fetch(`${serviceUrl}/health/alive`)
-            .then((response) => {
-                if (response.ok) {
-                    setState(State.Available);
-                } else {
-                    setState(State.Unavailable);
-                }
-            })
-            .catch((reason) => {
-                setState(State.Unavailable);
-            })
-    }, [serviceUrl]);
 
     return (
         <tr>
