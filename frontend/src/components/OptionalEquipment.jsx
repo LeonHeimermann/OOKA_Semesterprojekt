@@ -1,7 +1,26 @@
 import React from "react";
 
+const State = {
+    WAITING: {
+        value: "Waiting",
+        color: "is-light",
+    },
+    RUNNING: {
+        value: "Running",
+        color: "",
+    },
+    SUCCESS: {
+        value: "Success",
+        color: "",
+    },
+    FAILED: {
+        value: "Failed",
+        color: "",
+    },
+};
+
 export default function OptionalEquipment({name, choices}) {
-    const [state, setState] = React.useState("ok");
+    const [state, setState] = React.useState(State.WAITING);
 
     return (
         <tr>
@@ -10,8 +29,8 @@ export default function OptionalEquipment({name, choices}) {
                 <ChoiceList className="tabs is-toggle is-gapless" choices={choices}></ChoiceList>
             </td>
             <td>
-                <span className="tag is-large is-success">
-                    {state}
+                <span className={`tag is-large is-full-width ${state.color}`}>
+                    {state.value}
                 </span>
             </td>
         </tr>

@@ -1,20 +1,22 @@
 import React from "react";
 
 const State = {
-    Unknown: "Unknown",
-    Available: "Available",
-    Unavailable: "Unavailable",
+    UNKNOWN: {
+        name: "Unknown",
+        color: "is-danger"
+    },
+
 }
 
 export default function Microservice({name}) {
-    const [state, setState] = React.useState(State.Unknown);
+    const [state, setState] = React.useState(State.UNKNOWN);
 
     return (
         <tr>
             <td className="is-size-5">{name}</td>
             <td>
-                <span className={`tag is-large is-success ${state === State.Available ? "is-success" : "is-danger"}`}>
-                    {state}
+                <span className={`tag is-large is-full-width is-success ${state.color}`}>
+                    {state.name}
                 </span>
             </td>
         </tr>
