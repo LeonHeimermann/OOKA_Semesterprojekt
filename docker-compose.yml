@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  service-registry:
+    build:
+      context: ./service-registry/
+      dockerfile: Dockerfile
+    image: service-registry
+    networks:
+      - ooka-network
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8761" ]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+      start_period: 20s
+  ms-auxiliary-systems:
+    build:
+      context: ./ms-auxiliary-systems/
+      dockerfile: Dockerfile
+    image: ms-auxiliary-systems
+    depends_on:
+      service-registry:
+        condition: service_healthy
+    networks:
+      - ooka-network
+    ports:
+      - "8080:8080"
+  ms-control-systems:
+    build:
+      context: ./ms-control-systems/
+      dockerfile: Dockerfile
+    image: ms-control-systems
+    depends_on:
+      service-registry:
+        condition: service_healthy
+    networks:
+      - ooka-network
+    ports:
+      - "8081:8081"
+  ms-engine-systems:
+    build:
+      context: ./ms-engine-systems/
+      dockerfile: Dockerfile
+    image: ms-engine-systems
+    depends_on:
+      service-registry:
+        condition: service_healthy
+    networks:
+      - ooka-network
+    ports:
+      - "8082:8082"
+  ms-mounting-systems:
+    build:
+      context: ./ms-mounting-systems/
+      dockerfile: Dockerfile
+    image: ms-mounting-systems
+    depends_on:
+      service-registry:
+        condition: service_healthy
+    networks:
+      - ooka-network
+    ports:
+      - "8083:8083"
+  ms-power-transmission:
+    build:
+      context: ./ms-power-transmission/
+      dockerfile: Dockerfile
+    image: ms-power-transmission
+    depends_on:
+      service-registry:
+        condition: service_healthy
+    networks:
+      - ooka-network
+    ports:
+      - "8084:8084"
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    image: ooka_frontend
+    networks:
+      - ooka-network
+    ports:
+      - "3000:3000"
+
+networks:
+  ooka-network:
+    driver: bridge
+    name: ooka-network

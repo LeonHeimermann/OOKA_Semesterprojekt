@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: power-transmission-service
+
+server:
+  port: 8084

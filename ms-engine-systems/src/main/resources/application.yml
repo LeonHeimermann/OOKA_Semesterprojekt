@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: engine-systems-service
+
+server:
+  port: 8082

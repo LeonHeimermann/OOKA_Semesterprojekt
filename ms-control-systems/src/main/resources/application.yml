@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: control-systems-service
+
+server:
+  port: 8081
