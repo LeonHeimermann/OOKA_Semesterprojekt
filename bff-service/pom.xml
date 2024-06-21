@@ -43,6 +43,10 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -90,12 +94,15 @@
             <artifactId>kafka-clients</artifactId>
         </dependency>
     </dependencies>
+=======
+>>>>>>> origin/master
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+<<<<<<< HEAD
                 <configuration>
                     <excludes>
                         <exclude>
@@ -104,6 +111,8 @@
                         </exclude>
                     </excludes>
                 </configuration>
+=======
+>>>>>>> origin/master
             </plugin>
         </plugins>
     </build>
