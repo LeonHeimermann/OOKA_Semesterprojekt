@@ -1,52 +1,50 @@
 import React from "react";
+import ChoiceList from "./ChoiceList";
 
-const State = {
-    WAITING: {
-        value: "Waiting",
-        color: "is-light",
-    },
-    RUNNING: {
-        value: "Running",
-        color: "",
-    },
-    SUCCESS: {
-        value: "Success",
-        color: "",
-    },
-    FAILED: {
-        value: "Failed",
-        color: "",
-    },
-};
-
-export default function OptionalEquipment({name, choices}) {
-    const [state, setState] = React.useState(State.WAITING);
+export default function OptionalEquipment({equipment}) {
 
     return (
-        <tr>
-            <td className="is-size-5">{name}</td>
-            <td>
-                <ChoiceList className="tabs is-toggle is-gapless" choices={choices}></ChoiceList>
-            </td>
-            <td>
-                <span className={`tag is-large is-full-width ${state.color}`}>
-                    {state.value}
-                </span>
-            </td>
-        </tr>
-    );
-}
-
-function ChoiceList({choices}) {
-    const [activeChoice, setActiveChoice] = React.useState(0);
-
-    return (
-        <span className="buttons has-addons">
-            {choices.map((choice, index) =>
-                <button className={`button ${index === activeChoice ? "is-selected is-link" : ""}`} onClick={() => setActiveChoice(index)} key={choice + index}>
-                    {choice}
-                </button>)
-            }
-        </span>
+        <table className="table is-striped is-narrow is-fullwidth">
+            <thead>
+            <tr>
+                <th>Optional Equipment</th>
+                <th>Options</th>
+                <th className="has-text-centered" style={{width: "10rem"}}>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+                {equipment.map((e, i) => (
+                    <tr>
+                        <td className="is-size-5">{e.name}</td>
+                        <td>
+                            <ChoiceList
+                                className="tabs is-toggle is-gapless"
+                                choices={e.choices}
+                                activeChoice={0}
+                                onChoiceClicked={console.log}
+                            />
+                        </td>
+                        <td>
+                            <span className={`tag is-large is-full-width`}>
+                                Not Implemented
+                            </span>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td className="is-size-5">
+                    <button className="button is-primary" onClick={() => console.log("Start clicked")}>Start</button>
+                </td>
+                <td className="is-size-5 has-text-right">
+                    Result
+                </td>
+                <td>
+                    <span className="tag is-large">...</span>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
     );
 }
