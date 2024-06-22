@@ -1,28 +1,7 @@
 import React from "react";
 import ChoiceList from "./ChoiceList";
 
-export default function EngineType({engines, onSelectionChanged}) {
-
-    const [selectedEngine, setSelectedEngine] = React.useState(0);
-    const [selectedConfiguration, setSelectedConfiguration] = React.useState(0);
-
-    function changeEngine(engine) {
-        onSelectionChanged({
-            engine: engines[engine].name,
-            configuration: engines[engine].configurations[selectedConfiguration],
-        })
-
-        setSelectedEngine(engine);
-    }
-
-    function changeConfiguration(configuration) {
-        onSelectionChanged({
-            engine: engines[selectedEngine].name,
-            configuration: engines[selectedEngine].configurations[configuration],
-        })
-
-        setSelectedConfiguration(configuration);
-    }
+export default function EngineType({configuration, onConfigChanged}) {
 
     return (
         <table className="table is-striped is-narrow is-fullwidth">
@@ -34,26 +13,18 @@ export default function EngineType({engines, onSelectionChanged}) {
             </thead>
 
             <tbody>
-                <tr>
-                    <td className="is-size-5">Engine Type</td>
-                    <td>
-                        <ChoiceList className="tabs is-toggle is-gapless"
-                            choices={engines.map(engine => engine.name)}
-                            activeChoice={selectedEngine}
-                            onChoiceClicked={changeEngine}
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td className="is-size-5">Configuration</td>
-                    <td>
-                        <ChoiceList className="tabs is-toggle is-gapless"
-                            choices={engines[selectedEngine].configurations}
-                            activeChoice={selectedConfiguration}
-                            onChoiceClicked={changeConfiguration}
-                        />
-                    </td>
-                </tr>
+                <ChoiceList
+                    description={"Engine Type"}
+                    choices={["2000 M96", "2000 M96 - with Gearbox type"]}
+                    activeChoice={configuration.type}
+                    onChoiceClicked={(choice) => onConfigChanged({...configuration, type: choice})}
+                />
+                <ChoiceList
+                    description={"Configuration"}
+                    choices={configuration.type === 0 ? ["10V", "12V", "12V", "16V"] : ["10V - ZF 2050", "12V - ZF 2060", "12V - ZF 2060", "16V - ZF 3060"]}
+                    activeChoice={configuration.cylinder_config}
+                    onChoiceClicked={(choice) => onConfigChanged({...configuration, cylinder_config: choice})}
+                />
             </tbody>
         </table>
     );
