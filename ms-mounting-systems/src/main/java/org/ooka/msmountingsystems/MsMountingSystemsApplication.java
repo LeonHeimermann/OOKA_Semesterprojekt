@@ -3,7 +3,7 @@ package org.ooka.msmountingsystems;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages={"org.ooka.msmountingsystems", "org.ooka.commons.analyser"})
 public class MsMountingSystemsApplication {
 
     public static void main(String[] args) {
