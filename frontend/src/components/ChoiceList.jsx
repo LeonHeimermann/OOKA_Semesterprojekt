@@ -1,6 +1,35 @@
 import React from "react";
+import {Status} from "../entites/Status";
 
-export default function ChoiceList({description, choices, activeChoice, onChoiceClicked}) {
+export default function ChoiceList({description, choices, activeChoice, onChoiceClicked, status}) {
+
+    function statusDescription() {
+        switch (status){
+            case Status.WAITING:
+                return "Waiting";
+            case Status.RUNNING:
+                return "Running";
+            case Status.SUCCESS:
+                return "Success";
+            case Status.ERROR:
+                return "Failed";
+            default:
+                return "Unknown";
+        }
+    }
+
+    function statusColor() {
+        switch (status) {
+            case Status.RUNNING:
+                return "is-info";
+            case Status.SUCCESS:
+                return "is-success";
+            case Status.ERROR:
+                return "is-danger";
+            default:
+                return "";
+        }
+    }
 
     return (
         <tr>
@@ -16,11 +45,10 @@ export default function ChoiceList({description, choices, activeChoice, onChoice
                     )}
                 </span>
             </td>
+            {status ?
             <td>
-                <span className={`tag is-large is-full-width`}>
-                    Not Implemented
-                </span>
-            </td>
+                <span className={`tag is-large is-full-width ${statusColor()}`}>{statusDescription()}</span>
+            </td> : null}
         </tr>
     );
 }

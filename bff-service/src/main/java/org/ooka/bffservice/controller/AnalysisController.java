@@ -6,6 +6,7 @@ import org.ooka.bffservice.kafka.KafkaConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 
 @RestController
@@ -14,21 +15,21 @@ import org.springframework.web.bind.annotation.*;
 public class AnalysisController {
 
     @Autowired
-    KafkaConsumerService kafkaConsumerService;
+    private KafkaConsumerService kafkaConsumerService;
     @Autowired
-    AuxiliarySystemsClient auxiliarySystemsClient;
+    private AuxiliarySystemsClient auxiliarySystemsClient;
     @Autowired
-    ControlSystemsClient controlSystemsClient;
+    private ControlSystemsClient controlSystemsClient;
     @Autowired
-    EngineSystemsClient engineSystemsClient;
+    private EngineSystemsClient engineSystemsClient;
     @Autowired
-    MountingSystemsClient mountingSystemsClient;
+    private MountingSystemsClient mountingSystemsClient;
     @Autowired
-    PowerTransmissionClient powerTransmissionClient;
+    private PowerTransmissionClient powerTransmissionClient;
 
 
     @PostMapping
-    public ResponseEntity analyseAll(@RequestBody String config) {
+    public ResponseEntity<Object> analyseAll(@RequestBody String config) {
         System.out.println("received configuration:" + config);
 
         analyseAuxiliarySystems();
@@ -41,7 +42,7 @@ public class AnalysisController {
     }
 
     @PostMapping("/auxiliary-systems")
-    public ResponseEntity analyseAuxiliarySystems() {
+    public ResponseEntity<Object> analyseAuxiliarySystems() {
         try {
             auxiliarySystemsClient.analyse();
         } catch (FeignException.ServiceUnavailable e) {
@@ -54,7 +55,7 @@ public class AnalysisController {
     }
 
     @PostMapping("/control-systems")
-    public ResponseEntity analyseControlSystems() {
+    public ResponseEntity<Object> analyseControlSystems() {
         try {
             controlSystemsClient.analyse();
         } catch (FeignException.ServiceUnavailable e) {
@@ -67,7 +68,7 @@ public class AnalysisController {
     }
 
     @PostMapping("/engine-systems")
-    public ResponseEntity analyseEngineSystems() {
+    public ResponseEntity<Object> analyseEngineSystems() {
         try {
             engineSystemsClient.analyse();
         } catch (FeignException.ServiceUnavailable e) {
@@ -80,7 +81,7 @@ public class AnalysisController {
     }
 
     @PostMapping("/mounting-systems")
-    public ResponseEntity analyseMountingSystems() {
+    public ResponseEntity<Object> analyseMountingSystems() {
         try {
             mountingSystemsClient.analyse();
         } catch (FeignException.ServiceUnavailable e) {
@@ -93,7 +94,7 @@ public class AnalysisController {
     }
 
     @PostMapping("/power-transmission")
-    public ResponseEntity analysePowerTransmission() {
+    public ResponseEntity<Object> analysePowerTransmission() {
         try {
             powerTransmissionClient.analyse();
         } catch (FeignException.ServiceUnavailable e) {
@@ -105,20 +106,8 @@ public class AnalysisController {
         return ResponseEntity.ok().build();
     }
 
-    /*
-    @GetMapping(value = "/sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<String>> SseEmitter sseEmitter() {
-
-        return kafkaConsumerService.getMessages()
-                .map(message -> {
-                    System.out.println("sending message: " + message);
-                    return ServerSentEvent.<String>builder()
-                        .data(message)
-                        .id(String.valueOf(System.currentTimeMillis()))
-                        .build();
-                });
-
+    @GetMapping(value = "/sse")
+    public SseEmitter sseEmitter() {
         return kafkaConsumerService.createEmitter();
     }
-    */
 }
