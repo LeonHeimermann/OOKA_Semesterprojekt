@@ -13,3 +13,13 @@ eureka:
     register-with-eureka: false
     service-url:
       defaultZone=http://${eureka:instance:hostname}:${server:port}/eureka:
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+      base-path: /registry
+  endpoint:
+    prometheus:
+      enabled: true

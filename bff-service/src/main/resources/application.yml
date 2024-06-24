@@ -10,3 +10,13 @@ server:
 redis:
   host: localhost
   port: 6379
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+      base-path: /bff
+  endpoint:
+    prometheus:
+      enabled: true
