@@ -25,6 +25,17 @@ export default function ConfigurationController() {
         }
     });
 
+    function startAnalysis() {
+        fetch("http://localhost:8087/analysis", {
+            method: "POST",
+            body: JSON.stringify(configuration)
+        }).then(() => {
+            console.log("started analysis");
+        }).catch(error => {
+            console.error(error);
+        })
+    }
+
     return (
         <>
             <EngineType
@@ -35,7 +46,7 @@ export default function ConfigurationController() {
                 configuration={configuration.optionalEquipment}
                 showStartingSystem={configuration.engine.cylinder_config !== 0}
                 onConfigChanged={(newEquipmentConfig) => setConfiguration({...configuration, optionalEquipment: newEquipmentConfig})}
-                onStart={() => alert(JSON.stringify(configuration))}
+                onStart={() => startAnalysis()}
             />
         </>
     );
