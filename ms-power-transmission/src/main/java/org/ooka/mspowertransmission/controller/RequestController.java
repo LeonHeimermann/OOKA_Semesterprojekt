@@ -1,6 +1,6 @@
-package org.ooka.msauxiliarysystems.controller;
+package org.ooka.mspowertransmission.controller;
 
-import org.ooka.msauxiliarysystems.Algorithm;
+import org.ooka.mspowertransmission.Algorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;

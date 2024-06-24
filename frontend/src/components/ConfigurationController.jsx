@@ -26,7 +26,7 @@ export default function ConfigurationController() {
     });
 
     function startAnalysis() {
-        fetch("http://localhost:8087/analysis", {
+        fetch("http://localhost:8085/analysis", {
             method: "POST",
             body: JSON.stringify(configuration)
         }).then(() => {

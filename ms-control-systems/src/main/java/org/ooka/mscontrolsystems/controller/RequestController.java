@@ -1,6 +1,6 @@
-package org.ooka.msauxiliarysystems.controller;
+package org.ooka.mscontrolsystems.controller;
 
-import org.ooka.msauxiliarysystems.Algorithm;
+import org.ooka.mscontrolsystems.Algorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;

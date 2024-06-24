@@ -1,6 +1,6 @@
-package org.ooka.msauxiliarysystems;
+package org.ooka.msmountingsystems;
 
-import org.ooka.msauxiliarysystems.dto.AnalysationResult;
+import org.ooka.msmountingsystems.dto.AnalysationResult;
 import org.springframework.kafka.core.KafkaTemplate;
 
 
@@ -21,10 +21,10 @@ public class Algorithm extends Thread {
             boolean algorithmSucceeded = Math.random() <= 0.7; // simulate errors in calculation
             if (algorithmSucceeded) {
                 System.out.println("Algorithm completed");
-                kafkaTemplate.send("heimermann_weglau_analyse_result", new AnalysationResult("auxiliarysystems", true).toString());
+                kafkaTemplate.send("heimermann_weglau_analyse_result", new AnalysationResult("mountingsystems", true).toString());
             } else {
                 System.out.println("Algorithm failed");
-                kafkaTemplate.send("heimermann_weglau_analyse_result", new AnalysationResult("auxiliarysystems", false).toString());
+                kafkaTemplate.send("heimermann_weglau_analyse_result", new AnalysationResult("mountingsystems", false).toString());
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
