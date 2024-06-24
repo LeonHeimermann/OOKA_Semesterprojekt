@@ -7,8 +7,8 @@ export default function MicroserviceController({services}) {
         <table className="table is-striped is-narrow is-fullwidth">
             <thead>
                 <tr>
-                    <th>Microservice</th>
-                    <th className="has-text-centered">Status</th>
+                    <th style={{width: "100%"}}>Microservice</th>
+                    <th className="has-text-centered" style={{width: "10rem"}}>Status</th>
                 </tr>
             </thead>
             <tbody>

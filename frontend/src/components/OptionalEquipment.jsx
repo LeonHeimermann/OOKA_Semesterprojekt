@@ -98,13 +98,15 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                 <td className="is-size-5">
                     <button className="button is-primary"
                         onClick={() => onStart("Start clicked")}
-                        disabled={!enableStart}>Start</button>
+                        disabled={!enableStart}>
+                            Start analysis
+                    </button>
                 </td>
                 <td className="is-size-5 has-text-right">
                     Result
                 </td>
                 <td>
-                    <span className="tag is-large">...</span>
+                    <span className="tag is-large">Not implemented</span>
                 </td>
             </tr>
             </tfoot>

@@ -49,8 +49,6 @@ export default function ConfigurationController() {
     }, [])
 
     function updateStatus(result) {
-        console.log(result);
-
         if(result.service === "auxiliarysystems") {
             setStatus((oldState) => {
                 return {
