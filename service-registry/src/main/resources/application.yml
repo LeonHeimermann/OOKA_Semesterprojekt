@@ -17,9 +17,6 @@ eureka:
 management:
   endpoints:
     web:
+      base-path: /registry/actuator
       exposure:
-        include: health, info, prometheus
-      base-path: /registry
-  endpoint:
-    prometheus:
-      enabled: true
+        include: "*"

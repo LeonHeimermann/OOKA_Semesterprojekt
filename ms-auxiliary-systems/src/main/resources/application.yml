@@ -10,9 +10,6 @@ server:
 management:
   endpoints:
     web:
+      base-path: /auxiliary/actuator
       exposure:
-        include: health, info, prometheus
-      base-path: /auxiliary
-  endpoint:
-    prometheus:
-      enabled: true
+        include: "*"

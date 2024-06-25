@@ -10,9 +10,6 @@ server:
 management:
   endpoints:
     web:
+      base-path: /control-system/actuator
       exposure:
-        include: health, info, prometheus
-      base-path: /control-system
-  endpoint:
-    prometheus:
-      enabled: true
+        include: "*"

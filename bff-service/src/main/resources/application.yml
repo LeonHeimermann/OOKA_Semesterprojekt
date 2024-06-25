@@ -14,9 +14,6 @@ redis:
 management:
   endpoints:
     web:
+      base-path: /bff/actuator
       exposure:
-        include: health, info, prometheus
-      base-path: /bff
-  endpoint:
-    prometheus:
-      enabled: true
+        include: "*"
