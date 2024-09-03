@@ -1,11 +1,12 @@
 create table if not exists Configuration (
-    id varchar(4) not null,
+    id numeric not null,
     title varchar(255) not null,
     description varchar(255) not null,
     createdAt timestamp not null,
 
     engineType varchar(45) not null,
     engineConfiguration varchar(45) not null,
+    startingSystem varchar(45) not null,
     auxiliaryPTO varchar(45) not null,
     oilSystem varchar(45) not null,
     fuelSystem varchar(45) not null,
