@@ -3,17 +3,14 @@ package org.ooka.bffservice.kafka;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import reactor.core.publisher.FluxSink;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
 public class KafkaConsumerService {
 
-    private final List<FluxSink<String>> sinks = new ArrayList<>();
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
 
     @KafkaListener(topics = "heimermann_weglau_analyse_result", groupId = "consumerGroup10")

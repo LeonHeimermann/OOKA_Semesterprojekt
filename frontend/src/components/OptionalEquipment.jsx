@@ -1,7 +1,29 @@
 import React from "react";
 import ChoiceList from "./ChoiceList";
+import {Status} from "../entites/Status";
 
 export default function OptionalEquipment({configuration, onConfigChanged, enableStart, onStart, status, showStartingSystem}) {
+
+    function result() {
+        const stats = Object.keys(status);
+
+        if(stats.filter((service) => status[service] === Status.WAITING || status[service] === Status.RUNNING).length > 0) {
+            return {
+                label: "Waiting",
+                color: ""
+            }
+        } else if (stats.filter((stat) => status[stat] === Status.ERROR).length > 0) {
+            return {
+                label: "Failed",
+                color: "is-danger"
+            }
+        }
+
+        return {
+            label: "Success",
+            color: "is-success"
+        }
+    }
 
     return (
         <table className="table is-striped is-narrow is-fullwidth">
@@ -9,7 +31,7 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
             <tr>
                 <th>Optional Equipment</th>
                 <th>Options</th>
-                <th className="has-text-centered" style={{width: "10rem"}}>Status</th>
+                <th className="has-text-centered" style={{width: "13rem"}}>Status</th>
             </tr>
             </thead>
             <tbody>
@@ -106,7 +128,7 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                     Result
                 </td>
                 <td>
-                    <span className="tag is-large">Not implemented</span>
+                    <span className={`tag is-large is-full-width ${result().color}`}>{result().label}</span>
                 </td>
             </tr>
             </tfoot>

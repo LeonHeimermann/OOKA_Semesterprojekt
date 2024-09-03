@@ -1,6 +1,6 @@
-package org.ooka.mspowertransmission.dto;
+package org.ooka.msauxiliarysystems.dto;
 
-public record AnalysationResult(String service, boolean success) {
+public record AnalysisResult(String service, boolean success) {
 
     @Override
     public String toString() {

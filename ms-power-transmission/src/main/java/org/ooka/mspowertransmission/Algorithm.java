@@ -1,6 +1,6 @@
 package org.ooka.mspowertransmission;
 
-import org.ooka.mspowertransmission.dto.AnalysationResult;
+import org.ooka.mspowertransmission.dto.AnalysisResult;
 import org.springframework.kafka.core.KafkaTemplate;
 
 
@@ -21,10 +21,10 @@ public class Algorithm extends Thread {
             boolean algorithmSucceeded = Math.random() <= 0.7; // simulate errors in calculation
             if (algorithmSucceeded) {
                 System.out.println("Algorithm completed");
-                kafkaTemplate.send("heimermann_weglau_analyse_result", new AnalysationResult("powertransmission", true).toString());
+                kafkaTemplate.send("heimermann_weglau_analyse_result", new AnalysisResult("powertransmission", true).toString());
             } else {
                 System.out.println("Algorithm failed");
-                kafkaTemplate.send("heimermann_weglau_analyse_result", new AnalysationResult("powertransmission", false).toString());
+                kafkaTemplate.send("heimermann_weglau_analyse_result", new AnalysisResult("powertransmission", false).toString());
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

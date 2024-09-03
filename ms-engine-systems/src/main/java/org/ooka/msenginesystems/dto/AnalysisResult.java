@@ -1,6 +1,6 @@
-package org.ooka.msmountingsystems.dto;
+package org.ooka.msenginesystems.dto;
 
-public record AnalysationResult(String service, boolean success) {
+public record AnalysisResult(String service, boolean success) {
 
     @Override
     public String toString() {

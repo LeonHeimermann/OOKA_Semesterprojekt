@@ -1,6 +1,6 @@
 package org.ooka.msauxiliarysystems;
 
-import org.ooka.msauxiliarysystems.dto.AnalysationResult;
+import org.ooka.msauxiliarysystems.dto.AnalysisResult;
 import org.springframework.kafka.core.KafkaTemplate;
 
 
@@ -21,10 +21,10 @@ public class Algorithm extends Thread {
             boolean algorithmSucceeded = Math.random() <= 0.7; // simulate errors in calculation
             if (algorithmSucceeded) {
                 System.out.println("Algorithm completed");
-                kafkaTemplate.send("heimermann_weglau_analyse_result", new AnalysationResult("auxiliarysystems", true).toString());
+                kafkaTemplate.send("heimermann_weglau_analyse_result", new AnalysisResult("auxiliarysystems", true).toString());
             } else {
                 System.out.println("Algorithm failed");
-                kafkaTemplate.send("heimermann_weglau_analyse_result", new AnalysationResult("auxiliarysystems", false).toString());
+                kafkaTemplate.send("heimermann_weglau_analyse_result", new AnalysisResult("auxiliarysystems", false).toString());
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
