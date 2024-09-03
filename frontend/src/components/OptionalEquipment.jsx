@@ -2,7 +2,7 @@ import React from "react";
 import ChoiceList from "./ChoiceList";
 import {Status} from "../entities/Status";
 
-export default function OptionalEquipment({configuration, onConfigChanged, enableStart, onStart, status, showStartingSystem}) {
+export default function OptionalEquipment({configuration, onConfigChanged, enableStart, onStart, status, showStartingSystem, onSaveClicked}) {
 
     function result() {
         const stats = Object.keys(status);
@@ -122,6 +122,12 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                             onClick={() => onStart("Start clicked")}
                             disabled={!enableStart}>
                         Start analysis
+                    </button>
+                    <button className="button ml-2" onClick={() => onSaveClicked()}>
+                        Save
+                    </button>
+                    <button className="button ml-2">
+                        Load
                     </button>
                 </td>
                 <td className="is-size-5 has-text-right">

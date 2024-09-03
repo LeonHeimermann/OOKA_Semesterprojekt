@@ -3,7 +3,7 @@ import OptionalEquipment from "./OptionalEquipment";
 import EngineType from "./EngineType";
 import {Status} from "../entities/Status";
 
-export default function ConfigurationController() {
+export default function ConfigurationController({onSaveClicked}) {
 
     const [configuration, setConfiguration] = React.useState({
         engine: {
@@ -40,12 +40,14 @@ export default function ConfigurationController() {
     const [startEnabled, setStartEnabled] = React.useState(true);
 
     React.useEffect(() => {
+        /*
         const bffEvents = new EventSource("http://localhost:8085/analysis/sse");
         bffEvents.onmessage = (event) => {
             updateStatus(JSON.parse(event.data));
         };
         bffEvents.onerror = () => console.error("Verbindung fehlgeschlagen !");
         bffEvents.onopen = () => console.log("Verbindung erfolgreich");
+        */
     }, [])
 
     function updateStatus(result) {
@@ -123,6 +125,7 @@ export default function ConfigurationController() {
                 showStartingSystem={configuration.engine.cylinder_config !== 0}
                 onConfigChanged={(newEquipmentConfig) => setConfiguration({...configuration, optionalEquipment: newEquipmentConfig})}
                 onStart={() => startAnalysis()}
+                onSaveClicked={() => onSaveClicked()}
             />
         </>
     );
