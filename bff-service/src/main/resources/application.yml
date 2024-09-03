@@ -3,6 +3,9 @@ spring:
     name: bff-service
   kafka:
     bootstrap-servers: localhost:29092
+  h2:
+    console:
+      enabled: true
 
 server:
   port: 8085
