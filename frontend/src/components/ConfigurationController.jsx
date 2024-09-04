@@ -3,7 +3,7 @@ import OptionalEquipment from "./OptionalEquipment";
 import EngineType from "./EngineType";
 import {Status} from "../entities/Status";
 
-export default function ConfigurationController({onSaveClicked}) {
+export default function ConfigurationController({onSaveClicked, onLoadClicked}) {
 
     const [configuration, setConfiguration] = React.useState({
         engine: {
@@ -126,6 +126,7 @@ export default function ConfigurationController({onSaveClicked}) {
                 onConfigChanged={(newEquipmentConfig) => setConfiguration({...configuration, optionalEquipment: newEquipmentConfig})}
                 onStart={() => startAnalysis()}
                 onSaveClicked={() => onSaveClicked()}
+                onLoadClicked={() => onLoadClicked()}
             />
         </>
     );

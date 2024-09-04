@@ -3,6 +3,7 @@ import MicroserviceController from "./components/MicroserviceController";
 import ConfigurationController from "./components/ConfigurationController";
 import SaveConfigurationModal from "./components/SaveConfigurationModal";
 import React from "react";
+import LoadConfigurationModal from "./components/LoadConfigurationModal";
 
 
 const microservices = [
@@ -16,6 +17,8 @@ const microservices = [
 function App() {
 
     const [showSaveModal, setShowSaveModal] = React.useState(false);
+    const [showLoadModal, setShowLoadModal] = React.useState(false);
+    const [loadedConfigurations, setLoadedConfigurations] = React.useState([]);
 
     function saveConfiguration(title, description) {
         fetch("http://localhost:8085/configuration",{
@@ -41,15 +44,41 @@ function App() {
                 powerTransmission: "TORSIONALLY_RESILLIANT_COUPLING",
                 gearboxOption: "HYDRAULIC_PUMP_DRIVES"
             })
-        }).then(response => alert(response.status))
+        })
+            .then(response => {
+                if(response.status === 200) {
+                    setShowSaveModal(false);
+                } else {
+                    alert("Speichern fehlgeschlagen: " + response);
+                }
+            })
+            .catch(reason => alert(reason));
+    }
+
+    function loadConfigurations() {
+        fetch("http://localhost:8085/configuration")
+            .then(async response => setLoadedConfigurations(await response.json()))
+            .catch(reason => alert(reason))
+
+        setShowLoadModal(true)
     }
 
     return (
         <>
-            <ConfigurationController onSaveClicked={() => setShowSaveModal(true)}/>
-            <MicroserviceController services={microservices}/>
+            <ConfigurationController onSaveClicked={() => setShowSaveModal(true)}
+                                     onLoadClicked={() => loadConfigurations()}
+            />
+            <MicroserviceController services={microservices} />
 
-            <SaveConfigurationModal isActive={showSaveModal} onSave={saveConfiguration} onClose={() => setShowSaveModal(false)}/>
+            <SaveConfigurationModal isActive={showSaveModal}
+                                    onSave={saveConfiguration}
+                                    onClose={() => setShowSaveModal(false)}
+            />
+            <LoadConfigurationModal configuratons={loadedConfigurations}
+                                    isActive={showLoadModal}
+                                    onLoad={(configuration) => {setShowLoadModal(false); alert(configuration)}}
+                                    onClose={() => setShowLoadModal(false)}
+            />
         </>
     );
 }

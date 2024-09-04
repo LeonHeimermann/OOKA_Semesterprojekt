@@ -5,3 +5,12 @@
 th:first-child {
     width: 20%;
 }
+
+.load-config-container {
+    border-radius: 5px;
+}
+
+.load-config-container:hover {
+    background-color: hsl(171, 100%, 41%);
+    cursor: pointer;
+}
