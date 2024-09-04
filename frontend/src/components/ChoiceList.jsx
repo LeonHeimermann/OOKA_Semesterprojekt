@@ -36,10 +36,10 @@ export default function ChoiceList({description, choices, activeChoice, onChoice
             <td className="is-size-5">{description}</td>
             <td>
                 <span className="buttons has-addons">
-                    {choices.map((choice, index) =>
+                    {Object.keys(choices).map((choice, index) =>
                         <button
-                            className={`button ${index === activeChoice ? "is-selected is-link" : ""}`}
-                            onClick={() => onChoiceClicked(index)} key={choice + index}>
+                            className={`button ${choices[choice] === activeChoice ? "is-selected is-link" : ""}`}
+                            onClick={() => onChoiceClicked(choices[choice])} key={choice + index}>
                             {choice}
                         </button>
                     )}

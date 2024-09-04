@@ -1,6 +1,15 @@
 import React from "react";
 import ChoiceList from "./ChoiceList";
 import {Status} from "../entities/Status";
+import {
+    AuxiliaryPTO,
+    CoolingSystem, EngineManagementSystem,
+    ExhaustSystem,
+    FuelSystem,
+    GearboxOptions, MonitoringSystem, MountingSystem,
+    OilSystem, PowerTransmission,
+    StartingSystem
+} from "../entities/enums";
 
 export default function OptionalEquipment({configuration, onConfigChanged, enableStart, onStart, status, showStartingSystem, onSaveClicked, onLoadClicked}) {
 
@@ -38,80 +47,116 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
             { showStartingSystem ?
                 <ChoiceList
                     description={"Starting system"}
-                    choices={["Air starter"]}
-                    activeChoice={configuration.starting_system}
-                    onChoiceClicked={(choice) => onConfigChanged({...configuration, starting_system: choice})}
+                    choices={{
+                        "Air starter": StartingSystem.AIR_STARTER
+                    }}
+                    activeChoice={configuration.startingSystem}
+                    onChoiceClicked={(choice) => onConfigChanged({...configuration, startingSystem: choice})}
                     status={status.startingSystem}
                 /> : null
             }
             <ChoiceList
                 description={"Auxiliary PTO"}
-                choices={["Alternator", "140A or 190A", "28V", "2 pole", "bilgepump", "on-engine PTOs"]}
-                activeChoice={configuration.auxiliary_pto}
-                onChoiceClicked={(choice) => onConfigChanged({...configuration, auxiliary_pto: choice})}
+                choices={{
+                    "Alternator": AuxiliaryPTO.ALTERNATOR,
+                    "140A or 190A": AuxiliaryPTO.A140_OR_A190,
+                    "28V": AuxiliaryPTO.V28,
+                    "2 pole": AuxiliaryPTO.TWO_POLE,
+                    "bilgepump": AuxiliaryPTO.BILGEPUMP,
+                    "on-engine PTOs": AuxiliaryPTO.ON_ENGINE_PTO
+                }}
+                activeChoice={configuration.auxiliaryPTO}
+                onChoiceClicked={(choice) => onConfigChanged({...configuration, auxiliaryPTO: choice})}
                 status={status.auxiliaryPTO}
             />
             <ChoiceList
                 description={"Oil System"}
-                choices={["Oil replenishment system", "diverter valve for duplex system"]}
-                activeChoice={configuration.oil_system}
-                onChoiceClicked={(choice) => onConfigChanged({...configuration, oil_system: choice})}
+                choices={{
+                    "Oil replenishment system": OilSystem.REPLENISHMENT,
+                    "diverter valve for duplex system": OilSystem.DIVERTER_VALVE
+                }}
+                activeChoice={configuration.oilSystem}
+                onChoiceClicked={(choice) => onConfigChanged({...configuration, oilSystem: choice})}
                 status={status.oilSystem}
             />
             <ChoiceList
                 description={"Fuel System"}
-                choices={["Duplex fuel pre-filter", "diverter valve for fuel filter", "monitoring fuel leakage"]}
-                activeChoice={configuration.fuel_system}
-                onChoiceClicked={(choice) => onConfigChanged({...configuration, fuel_system: choice})}
+                choices={{
+                    "Duplex fuel pre-filter": FuelSystem.PRE_FILTER,
+                    "diverter valve for fuel filter": FuelSystem.DIVERTER_VALVE,
+                    "monitoring fuel leakage": FuelSystem.MONITORING_FUEL_LEAKAGE
+                }}
+                activeChoice={configuration.fuelSystem}
+                onChoiceClicked={(choice) => onConfigChanged({...configuration, fuelSystem: choice})}
                 status={status.fuelSystem}
             />
             <ChoiceList
                 description={"Cooling System"}
-                choices={["Coolant preheating system freestanding or engine mounted", "integrated seawater gearbox piping"]}
-                activeChoice={configuration.cooling_system}
-                onChoiceClicked={(choice) => onConfigChanged({...configuration, cooling_system: choice})}
+                choices={{
+                    "Coolant preheating system freestanding or engine mounted": CoolingSystem.COOLANT_PREHEATING,
+                    "integrated seawater gearbox piping": CoolingSystem.SEAWATER_PIPING
+                }}
+                activeChoice={configuration.coolingSystem}
+                onChoiceClicked={(choice) => onConfigChanged({...configuration, coolingSystem: choice})}
                 status={status.coolingSystem}
             />
             <ChoiceList
                 description={"Exhaust System"}
-                choices={["90° Exhaust bellows discharge rotatable"]}
-                activeChoice={configuration.exhaust_system}
-                onChoiceClicked={(choice) => onConfigChanged({...configuration, exhaust_system: choice})}
+                choices={{
+                    "90 degree Exhaust bellows discharge rotatable": ExhaustSystem.EXHAUST_DISCHARGE_ROTATABLE
+                }}
+                activeChoice={configuration.exhaustSystem}
+                onChoiceClicked={(choice) => onConfigChanged({...configuration, exhaustSystem: choice})}
                 status={status.exhaustSystem}
             />
             <ChoiceList
                 description={"Mounting System"}
-                choices={["Resilient mounts at driving end"]}
-                activeChoice={configuration.mounting_system}
-                onChoiceClicked={(choice) => onConfigChanged({...configuration, mounting_system: choice})}
+                choices={{
+                    "Resilient mounts at driving end": MountingSystem.RESILIANT_MOUNTS
+                }}
+                activeChoice={configuration.mountingSystem}
+                onChoiceClicked={(choice) => onConfigChanged({...configuration, mountingSystem: choice})}
                 status={status.mountingSystem}
             />
             <ChoiceList
                 description={"Engine Management System"}
-                choices={["In compliance with Classification Society Regulations"]}
-                activeChoice={configuration.engine_management_system}
-                onChoiceClicked={(choice) => onConfigChanged({...configuration, engine_management_system: choice})}
+                choices={{
+                    "In compliance with Classification Society Regulations": EngineManagementSystem.SOCIETY_REGULATIONS
+                }}
+                activeChoice={configuration.engineManagementSystem}
+                onChoiceClicked={(choice) => onConfigChanged({...configuration, engineManagementSystem: choice})}
                 status={status.engineManagementSystem}
             />
             <ChoiceList
                 description={"Monitoring/Control System"}
-                choices={["BlueVision|New Generation"]}
-                activeChoice={configuration.monitoring_system}
-                onChoiceClicked={(choice) => onConfigChanged({...configuration, monitoring_system: choice})}
+                choices={{
+                    "BlueVision | New Generation": MonitoringSystem.BLUE_VISION
+                }}
+                activeChoice={configuration.monitoringSystem}
+                onChoiceClicked={(choice) => onConfigChanged({...configuration, monitoringSystem: choice})}
                 status={status.monitoringSystem}
             />
             <ChoiceList
                 description={"Power Transmission"}
-                choices={["Torsionally resilient coupling"]}
-                activeChoice={configuration.power_transmission}
-                onChoiceClicked={(choice) => onConfigChanged({...configuration, power_transmission: choice})}
+                choices={{
+                    "Torsionally resilient coupling": PowerTransmission.TORSIONALLY_RESILLIANT_COUPLING
+                }}
+                activeChoice={configuration.powerTransmission}
+                onChoiceClicked={(choice) => onConfigChanged({...configuration, powerTransmission: choice})}
                 status={status.powerTransmission}
             />
             <ChoiceList
                 description={"Gearbox Options"}
-                choices={["Reverse reduction gearbox", "el. actuated", "gearbox mounts", "trolling mode for dead-slow propulsion", "free auxiliary PTO", "hydraulic pump drives"]}
-                activeChoice={configuration.gearbox_options}
-                onChoiceClicked={(choice) => onConfigChanged({...configuration, gearbox_options: choice})}
+                choices={{
+                    "Reverse reduction gearbox": GearboxOptions.REVERSE_REDUCTION,
+                    "el. actuated": GearboxOptions.EL_ACUTATED,
+                    "gearbox mounts": GearboxOptions.GEARBOX_MOUNTS,
+                    "trolling mode for dead-slow propulsion": GearboxOptions.SLOW_PROPULSION,
+                    "free auxiliary PTO": GearboxOptions.FREE_AUXILIARY_PTO,
+                    "hydraulic pump drives": GearboxOptions.HYDRAULIC_PUMP_DRIVES
+                }}
+                activeChoice={configuration.gearboxOption}
+                onChoiceClicked={(choice) => onConfigChanged({...configuration, gearboxOption: choice})}
                 status={status.gearboxOptions}
             />
             </tbody>

@@ -1,0 +1,73 @@
+export const AuxiliaryPTO = {
+    ALTERNATOR: "ALTERNATOR",
+    A140_OR_A190: "A140_OR_A190",
+    V28: "V28",
+    TWO_POLE: "TWO_POLE",
+    BILGEPUMP: "BILGEPUMP",
+    ON_ENGINE_PTO: "ON_ENGINE_PTO"
+}
+
+export const CoolingSystem = {
+    COOLANT_PREHEATING: "COOLANT_PREHEATING",
+    SEAWATER_PIPING: "SEAWATER_PIPING"
+}
+
+export const EngineConfiguration = {
+    V10: "V10",
+    V12_A: "V12_A",
+    V12_B: "V12_B",
+    V16: "V16",
+    V10_ZF2050: "V10_ZF2050",
+    V12_ZF2060_A: "V12_ZF2060_A",
+    V12_ZF2060_B: "V12_ZF2060_B",
+    V16_ZF3060: "V16_ZF3060"
+}
+
+export const EngineManagementSystem = {
+    SOCIETY_REGULATIONS: "SOCIETY_REGULATIONS"
+}
+
+export const EngineType = {
+    M96_2000: "M96_2000",
+    M96_2000_WITH_GEARBOX: "M96_2000_WITH_GEARBOX"
+}
+
+export const ExhaustSystem = {
+    EXHAUST_DISCHARGE_ROTATABLE: "EXHAUST_DISCHARGE_ROTATABLE"
+}
+
+export const FuelSystem = {
+    PRE_FILTER: "PRE_FILTER",
+    DIVERTER_VALVE: "DIVERTER_VALVE",
+    MONITORING_FUEL_LEAKAGE: "MONITORING_FUEL_LEAKAGE"
+}
+
+export const GearboxOptions = {
+    REVERSE_REDUCTION: "REVERSE_REDUCTION",
+    EL_ACUTATED: "EL_ACUTATED",
+    GEARBOX_MOUNTS: "GEARBOX_MOUNTS",
+    SLOW_PROPULSION: "SLOW_PROPULSION",
+    FREE_AUXILIARY_PTO: "FREE_AUXILIARY_PTO",
+    HYDRAULIC_PUMP_DRIVES: "HYDRAULIC_PUMP_DRIVES"
+}
+
+export const MonitoringSystem = {
+    BLUE_VISION: "BLUE_VISION"
+}
+
+export const MountingSystem = {
+    RESILIANT_MOUNTS: "RESILIANT_MOUNTS"
+}
+
+export const OilSystem = {
+    REPLENISHMENT: "REPLENISHMENT",
+    DIVERTER_VALVE: "DIVERTER_VALVE"
+}
+
+export const PowerTransmission = {
+    TORSIONALLY_RESILLIANT_COUPLING: "TORSIONALLY_RESILLIANT_COUPLING"
+}
+
+export const StartingSystem = {
+    AIR_STARTER: "AIR_STARTER"
+}

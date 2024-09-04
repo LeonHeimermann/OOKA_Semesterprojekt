@@ -4,6 +4,15 @@ import ConfigurationController from "./components/ConfigurationController";
 import SaveConfigurationModal from "./components/SaveConfigurationModal";
 import React from "react";
 import LoadConfigurationModal from "./components/LoadConfigurationModal";
+import {
+    AuxiliaryPTO,
+    CoolingSystem,
+    EngineConfiguration, EngineManagementSystem,
+    EngineType, ExhaustSystem,
+    FuelSystem, GearboxOptions, MonitoringSystem, MountingSystem,
+    OilSystem, PowerTransmission,
+    StartingSystem
+} from "./entities/enums";
 
 
 const microservices = [
@@ -19,6 +28,21 @@ function App() {
     const [showSaveModal, setShowSaveModal] = React.useState(false);
     const [showLoadModal, setShowLoadModal] = React.useState(false);
     const [loadedConfigurations, setLoadedConfigurations] = React.useState([]);
+    const [configuration, setConfiguration] = React.useState({
+        engineType: EngineType.M96_2000,
+        engineConfiguration: EngineConfiguration.V10,
+        startingSystem: StartingSystem.AIR_STARTER,
+        auxiliaryPTO: AuxiliaryPTO.ALTERNATOR,
+        oilSystem: OilSystem.REPLENISHMENT,
+        fuelSystem: FuelSystem.PRE_FILTER,
+        coolingSystem: CoolingSystem.COOLANT_PREHEATING,
+        exhaustSystem: ExhaustSystem.EXHAUST_DISCHARGE_ROTATABLE,
+        mountingSystem: MountingSystem.RESILIANT_MOUNTS,
+        engineManagementSystem: EngineManagementSystem.SOCIETY_REGULATIONS,
+        monitoringSystem: MonitoringSystem.BLUE_VISION,
+        powerTransmission: PowerTransmission.TORSIONALLY_RESILLIANT_COUPLING,
+        gearboxOption: GearboxOptions.REVERSE_REDUCTION
+    });
 
     function saveConfiguration(title, description) {
         fetch("http://localhost:8085/configuration",{
@@ -27,22 +51,9 @@ function App() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                ...configuration,
                 title: title,
-                description: description,
-                // testdata - replace with real configuration later
-                engineType: "M96_2000",
-                engineConfiguration: "V10",
-                startingSystem: "AIR_STARTER",
-                auxiliaryPTO: "ALTERNATOR",
-                oilSystem: "DIVERTER_VALVE",
-                fuelSystem: "MONITORING_FUEL_LEAKAGE",
-                coolingSystem: "SEAWATER_PIPING",
-                exhaustSystem: "EXHAUST_DISCHARGE_ROTATABLE",
-                mountingSystem: "RESILIANT_MOUNTS",
-                engineManagementSystem: "SOCIETY_REGULATIONS",
-                monitoringSystem: "BLUE_VISION",
-                powerTransmission: "TORSIONALLY_RESILLIANT_COUPLING",
-                gearboxOption: "HYDRAULIC_PUMP_DRIVES"
+                description: description
             })
         })
             .then(response => {
@@ -65,7 +76,9 @@ function App() {
 
     return (
         <>
-            <ConfigurationController onSaveClicked={() => setShowSaveModal(true)}
+            <ConfigurationController configuration={configuration}
+                                     onConfigChanged={(config) => setConfiguration(config)}
+                                     onSaveClicked={() => setShowSaveModal(true)}
                                      onLoadClicked={() => loadConfigurations()}
             />
             <MicroserviceController services={microservices} />
@@ -76,7 +89,7 @@ function App() {
             />
             <LoadConfigurationModal configuratons={loadedConfigurations}
                                     isActive={showLoadModal}
-                                    onLoad={(configuration) => {setShowLoadModal(false); alert(configuration)}}
+                                    onLoad={(configuration) => {setShowLoadModal(false); setConfiguration(configuration)}}
                                     onClose={() => setShowLoadModal(false)}
             />
         </>
