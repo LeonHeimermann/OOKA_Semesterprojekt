@@ -86,6 +86,9 @@ export default function ConfigurationController({configuration, onConfigChanged,
 
         fetch("http://localhost:8085/analysis", {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(configuration)
         }).then(() => {
             console.log("started analysis");
