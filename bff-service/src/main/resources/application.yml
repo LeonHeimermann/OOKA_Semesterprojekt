@@ -2,17 +2,13 @@ spring:
   application:
     name: bff-service
   kafka:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers: localhost:9092
   h2:
     console:
       enabled: true
 
 server:
   port: 8085
-
-redis:
-  host: localhost
-  port: 6379
 
 management:
   endpoints:

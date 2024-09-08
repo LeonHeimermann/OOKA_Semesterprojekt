@@ -2,7 +2,7 @@ package org.ooka.bffservice.kafka;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.ooka.commons.model.TaskRequestModel;
+import org.ooka.bffservice.model.TaskRequestModel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

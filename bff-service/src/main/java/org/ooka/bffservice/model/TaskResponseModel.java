@@ -1,4 +1,4 @@
-package org.ooka.commons.model;
+package org.ooka.bffservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,8 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TaskRequestModel implements Serializable {
+public class TaskResponseModel implements Serializable {
     private String taskId;
-    private String data;
+    private String result;
+    private String serviceTypeId;
 }

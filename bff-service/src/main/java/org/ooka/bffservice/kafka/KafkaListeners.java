@@ -1,8 +1,8 @@
 package org.ooka.bffservice.kafka;
 
 import lombok.RequiredArgsConstructor;
+import org.ooka.bffservice.model.TaskResponseModel;
 import org.ooka.bffservice.task.TaskService;
-import org.ooka.commons.model.TaskResponseModel;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
