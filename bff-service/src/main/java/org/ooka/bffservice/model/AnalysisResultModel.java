@@ -1,10 +1,12 @@
 package org.ooka.bffservice.model;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AnalysisResultModel {
     private String result;
 }

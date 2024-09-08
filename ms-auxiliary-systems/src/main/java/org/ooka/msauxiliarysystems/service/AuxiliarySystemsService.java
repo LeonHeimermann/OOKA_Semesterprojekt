@@ -19,7 +19,7 @@ public class AuxiliarySystemsService {
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final TaskAnalyser taskAnalyser;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
 
     public void analyse(AnalysisConfigurationRequestModel analysisConfigurationRequestModel) {

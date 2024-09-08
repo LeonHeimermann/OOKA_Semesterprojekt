@@ -1,4 +1,4 @@
-package org.ooka.bffservice.kafka;
+package org.ooka.msmountingsystems.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
