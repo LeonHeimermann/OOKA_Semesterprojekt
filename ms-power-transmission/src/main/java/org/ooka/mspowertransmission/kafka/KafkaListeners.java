@@ -19,7 +19,6 @@ public class KafkaListeners {
 
     @KafkaListener(topics = TASK_POWER_TRANSMISSION_TOPIC, groupId = "analysis-group", containerFactory = "kafkaListenerFactory")
     void listenerPowerTransmission(String configString) throws JsonProcessingException {
-        System.out.println(configString);
         AnalysisConfigurationRequestModel analysisResultModel = objectMapper.readValue(configString, AnalysisConfigurationRequestModel.class);
         powerTransmissionService.analyse(analysisResultModel);
     }

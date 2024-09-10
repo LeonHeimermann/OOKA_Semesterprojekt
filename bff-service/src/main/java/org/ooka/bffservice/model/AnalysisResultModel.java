@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnalysisResultModel {
+    private String uuid;
     private String result;
 }
