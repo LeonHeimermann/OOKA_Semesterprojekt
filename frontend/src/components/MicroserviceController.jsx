@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export default function MicroserviceController({services}) {
+export default function MicroserviceController({services, activeServices}) {
 
     return (
         <table className="table is-striped is-narrow is-fullwidth">
@@ -13,16 +13,23 @@ export default function MicroserviceController({services}) {
             </thead>
             <tbody>
             {services.map((service, i) => (
-                <tr>
+                <tr key={service.id}>
                     <td className="is-size-5">{service.name}</td>
                     <td>
-                            <span className={`tag is-large is-full-width`}>
-                                Not implemented
-                            </span>
+                        <ServiceStatusComponent service={service} activeServices={activeServices}/>
                     </td>
                 </tr>
             ))}
             </tbody>
         </table>
+    );
+}
+
+function ServiceStatusComponent({service, activeServices}) {
+    const serviceStatus = activeServices.includes(service.id) ? "Active" : "Inactive";
+    return (
+        <span className="tag is-large is-full-width">
+            {serviceStatus}
+        </span>
     );
 }

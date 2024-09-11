@@ -2,7 +2,7 @@ import './App.css';
 import MicroserviceController from "./components/MicroserviceController";
 import ConfigurationController from "./components/ConfigurationController";
 import SaveConfigurationModal from "./components/SaveConfigurationModal";
-import React from "react";
+import React, {useEffect} from "react";
 import LoadConfigurationModal from "./components/LoadConfigurationModal";
 import {
     AuxiliaryPTO,
@@ -17,11 +17,11 @@ import {Status} from "./entities/Status";
 
 
 const microservices = [
-    {name: "Engine Systems"},
-    {name: "Power Transmission"},
-    {name: "Control Systems"},
-    {name: "Auxiliary Systems"},
-    {name: "Mounting Systems"}
+    {name: "Engine Systems", id: "engine-systems-service"},
+    {name: "Power Transmission", id: "power-transmission-service"},
+    {name: "Control Systems", id: "control-systems-service"},
+    {name: "Auxiliary Systems", id: "auxiliary-systems-service"},
+    {name: "Mounting Systems", id: "mounting-systems-service"}
 ];
 
 function App() {
@@ -53,7 +53,12 @@ function App() {
         gearboxOption: GearboxOptions.REVERSE_REDUCTION
     });
     const [startButtonEnabled, setStartButtonEnabled] = React.useState(true);
-    const [serviceStatus, setServiceStatus] = React.useState(internalStatus)
+    const [serviceStatus, setServiceStatus] = React.useState(internalStatus);
+    const [activeServices, setActiveServices] = React.useState([]);
+
+    useEffect(() => {
+        updateActiveServices();
+    }, []);
 
     function saveConfiguration(title, description) {
         fetch("http://localhost:8085/configuration",{
@@ -145,6 +150,17 @@ function App() {
         }
     }
 
+    function updateActiveServices() {
+        fetch("http://localhost:8085/registry").then(async response => {
+            const resJson = await response.json();
+            const activeServicesTmp = resJson.map(service => service.id);
+            setActiveServices(activeServicesTmp);
+        }).catch(error => {
+            console.error(error);
+            setTimeout(updateActiveServices, 5000);
+        });
+    }
+
     return (
         <>
             <ConfigurationController configuration={configuration}
@@ -155,7 +171,7 @@ function App() {
                                      onSaveClicked={() => setShowSaveModal(true)}
                                      onLoadClicked={() => loadConfigurations()}
             />
-            <MicroserviceController services={microservices} />
+            <MicroserviceController services={microservices} activeServices={activeServices}/>
 
             <SaveConfigurationModal isActive={showSaveModal}
                                     onSave={saveConfiguration}
