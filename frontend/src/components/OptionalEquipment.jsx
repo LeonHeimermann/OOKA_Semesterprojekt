@@ -52,7 +52,7 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                     }}
                     activeChoice={configuration.startingSystem}
                     onChoiceClicked={(choice) => onConfigChanged({...configuration, startingSystem: choice})}
-                    status={status.startingSystem}
+                    status={status.engineSystems}
                 /> : null
             }
             <ChoiceList
@@ -67,7 +67,7 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                 }}
                 activeChoice={configuration.auxiliaryPTO}
                 onChoiceClicked={(choice) => onConfigChanged({...configuration, auxiliaryPTO: choice})}
-                status={status.auxiliaryPTO}
+                status={status.auxiliarySystems}
             />
             <ChoiceList
                 description={"Oil System"}
@@ -77,7 +77,7 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                 }}
                 activeChoice={configuration.oilSystem}
                 onChoiceClicked={(choice) => onConfigChanged({...configuration, oilSystem: choice})}
-                status={status.oilSystem}
+                status={status.engineSystems}
             />
             <ChoiceList
                 description={"Fuel System"}
@@ -88,7 +88,7 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                 }}
                 activeChoice={configuration.fuelSystem}
                 onChoiceClicked={(choice) => onConfigChanged({...configuration, fuelSystem: choice})}
-                status={status.fuelSystem}
+                status={status.engineSystems}
             />
             <ChoiceList
                 description={"Cooling System"}
@@ -98,7 +98,7 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                 }}
                 activeChoice={configuration.coolingSystem}
                 onChoiceClicked={(choice) => onConfigChanged({...configuration, coolingSystem: choice})}
-                status={status.coolingSystem}
+                status={status.engineSystems}
             />
             <ChoiceList
                 description={"Exhaust System"}
@@ -107,7 +107,7 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                 }}
                 activeChoice={configuration.exhaustSystem}
                 onChoiceClicked={(choice) => onConfigChanged({...configuration, exhaustSystem: choice})}
-                status={status.exhaustSystem}
+                status={status.engineSystems}
             />
             <ChoiceList
                 description={"Mounting System"}
@@ -116,7 +116,7 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                 }}
                 activeChoice={configuration.mountingSystem}
                 onChoiceClicked={(choice) => onConfigChanged({...configuration, mountingSystem: choice})}
-                status={status.mountingSystem}
+                status={status.mountingSystems}
             />
             <ChoiceList
                 description={"Engine Management System"}
@@ -125,7 +125,7 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                 }}
                 activeChoice={configuration.engineManagementSystem}
                 onChoiceClicked={(choice) => onConfigChanged({...configuration, engineManagementSystem: choice})}
-                status={status.engineManagementSystem}
+                status={status.controlSystems}
             />
             <ChoiceList
                 description={"Monitoring/Control System"}
@@ -134,7 +134,7 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                 }}
                 activeChoice={configuration.monitoringSystem}
                 onChoiceClicked={(choice) => onConfigChanged({...configuration, monitoringSystem: choice})}
-                status={status.monitoringSystem}
+                status={status.controlSystems}
             />
             <ChoiceList
                 description={"Power Transmission"}
@@ -157,7 +157,7 @@ export default function OptionalEquipment({configuration, onConfigChanged, enabl
                 }}
                 activeChoice={configuration.gearboxOption}
                 onChoiceClicked={(choice) => onConfigChanged({...configuration, gearboxOption: choice})}
-                status={status.gearboxOptions}
+                status={status.powerTransmission}
             />
             </tbody>
             <tfoot>

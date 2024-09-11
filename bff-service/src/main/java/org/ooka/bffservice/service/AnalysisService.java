@@ -25,14 +25,13 @@ public class AnalysisService {
     private final Map<String, Integer> messageCounter = new HashMap<>();
     private final int SERVICE_AMOUNT = 5;
 
-    public SseEmitter analyse(String configDtoString) throws JsonProcessingException {
-        ConfigurationDTO configDto = objectMapper.readValue(configDtoString, ConfigurationDTO.class);
+    public SseEmitter analyse(ConfigurationDTO configurationDTO) throws JsonProcessingException {
         UUID uuid = UUID.randomUUID();
         messageCounter.put(uuid.toString(), 0);
         SseEmitter sseEmitter = connectionHandler.addConnection(uuid.toString());
         AnalysisConfigurationDto analysisConfigurationDto = AnalysisConfigurationDto.builder()
                 .uuid(uuid.toString())
-                .configuration(configDto)
+                .configuration(configurationDTO)
                 .build();
         String analysisConfigDtoString = objectMapper.writeValueAsString(analysisConfigurationDto);
         kafkaTemplate.send(KafkaTopicConfig.TASK_AUXILIARY_SYSTEMS_TOPIC, analysisConfigDtoString);

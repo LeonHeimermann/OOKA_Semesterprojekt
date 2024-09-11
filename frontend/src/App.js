@@ -13,6 +13,7 @@ import {
     OilSystem, PowerTransmission,
     StartingSystem
 } from "./entities/enums";
+import {Status} from "./entities/Status";
 
 
 const microservices = [
@@ -24,6 +25,14 @@ const microservices = [
 ];
 
 function App() {
+
+    let internalStatus = {
+        auxiliarySystems: Status.WAITING,
+        controlSystems: Status.WAITING,
+        engineSystems: Status.WAITING,
+        mountingSystems: Status.WAITING,
+        powerTransmission: Status.WAITING,
+    }
 
     const [showSaveModal, setShowSaveModal] = React.useState(false);
     const [showLoadModal, setShowLoadModal] = React.useState(false);
@@ -43,6 +52,8 @@ function App() {
         powerTransmission: PowerTransmission.TORSIONALLY_RESILLIANT_COUPLING,
         gearboxOption: GearboxOptions.REVERSE_REDUCTION
     });
+    const [startButtonEnabled, setStartButtonEnabled] = React.useState(true);
+    const [serviceStatus, setServiceStatus] = React.useState(internalStatus)
 
     function saveConfiguration(title, description) {
         fetch("http://localhost:8085/configuration",{
@@ -74,10 +85,73 @@ function App() {
         setShowLoadModal(true)
     }
 
+    function startAnalysis() {
+        setStartButtonEnabled(false);
+
+        Object.keys(internalStatus).forEach((s) => internalStatus[s] = Status.RUNNING);
+        setServiceStatus(internalStatus);
+
+        fetch("http://localhost:8085/analysis", {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(configuration)
+        }).then(async (response) => {
+            console.log("started analysis...");
+            setStartButtonEnabled(false);
+
+            const reader = response.body.getReader();
+            while (true) {
+                const {value, done} = await reader.read();
+                if (done) break;
+
+                const eventData = new TextDecoder().decode(value);
+                if (eventData.startsWith("data:")) {
+                    const analysisResult = JSON.parse(eventData.split("data:")[1])
+                    updateStatus(analysisResult)
+                }
+            }
+            console.log("stream finished")
+        }).catch(error => {
+            console.error(error);
+        }).then(() => setStartButtonEnabled(true))
+    }
+
+    function updateStatus(result) {
+        console.log(serviceStatus)
+        switch (result.serviceId) {
+            case "auxiliary-systems":
+                internalStatus = {...internalStatus, auxiliarySystems: result.result == "success" ? Status.SUCCESS : Status.ERROR}
+                setServiceStatus(internalStatus)
+                break;
+            case "engine-systems":
+                internalStatus = {...internalStatus, engineSystems: result.result == "success" ? Status.SUCCESS : Status.ERROR}
+                setServiceStatus(internalStatus)
+                break;
+            case "control-systems":
+                internalStatus = {...internalStatus, controlSystems: result.result == "success" ? Status.SUCCESS : Status.ERROR}
+                setServiceStatus(internalStatus)
+                break;
+            case "power-transmission":
+                internalStatus = {...internalStatus, powerTransmission: result.result == "success" ? Status.SUCCESS : Status.ERROR}
+                setServiceStatus(internalStatus)
+                break;
+            case "mounting-systems":
+                internalStatus = {...internalStatus, mountingSystems: result.result == "success" ? Status.SUCCESS : Status.ERROR}
+                setServiceStatus(internalStatus)
+                break;
+        }
+    }
+
     return (
         <>
             <ConfigurationController configuration={configuration}
+                                     serviceStatus={serviceStatus}
+                                     enableAnalysisStart={startButtonEnabled}
                                      onConfigChanged={(config) => setConfiguration(config)}
+                                     onStartClicked={() => startAnalysis()}
                                      onSaveClicked={() => setShowSaveModal(true)}
                                      onLoadClicked={() => loadConfigurations()}
             />
