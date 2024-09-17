@@ -17,11 +17,13 @@ public class ConfigurationController {
 
     @GetMapping()
     public List<ConfigurationDTO> getConfigurations() {
-        return configurationRepository
+        var configurations = configurationRepository
                 .findAll()
                 .stream()
                 .map(ConfigurationDTO::new)
                 .toList();
+
+        return configurations;
     }
 
     @PostMapping()

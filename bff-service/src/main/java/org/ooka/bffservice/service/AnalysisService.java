@@ -39,6 +39,7 @@ public class AnalysisService {
         kafkaTemplate.send(KafkaTopicConfig.TASK_ENGINE_SYSTEMS_TOPIC, analysisConfigDtoString);
         kafkaTemplate.send(KafkaTopicConfig.TASK_MOUNTING_SYSTEMS_TOPIC, analysisConfigDtoString);
         kafkaTemplate.send(KafkaTopicConfig.TASK_POWER_TRANSMISSION_TOPIC, analysisConfigDtoString);
+
         return sseEmitter;
     }
 

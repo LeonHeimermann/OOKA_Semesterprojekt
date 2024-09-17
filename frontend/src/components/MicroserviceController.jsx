@@ -7,7 +7,7 @@ export default function MicroserviceController({services, activeServices}) {
         <table className="table is-striped is-narrow is-fullwidth">
             <thead>
             <tr>
-                <th style={{width: "100%"}}>Microservice</th>
+                <th className="column is-full">Microservice</th>
                 <th className="has-text-centered" style={{width: "13rem"}}>Status</th>
             </tr>
             </thead>
@@ -26,9 +26,9 @@ export default function MicroserviceController({services, activeServices}) {
 }
 
 function ServiceStatusComponent({service, activeServices}) {
-    const serviceStatus = activeServices.includes(service.id) ? "Active" : "Inactive";
+    const serviceStatus = activeServices.includes(service.id) ? "Available" : "Unavailable";
     return (
-        <span className="tag is-large is-full-width">
+        <span className={`tag is-large is-full-width ${activeServices.includes(service.id) ? "is-success" : "is-danger"}`}>
             {serviceStatus}
         </span>
     );

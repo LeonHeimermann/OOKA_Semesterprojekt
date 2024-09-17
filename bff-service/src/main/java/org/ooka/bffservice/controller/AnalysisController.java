@@ -19,6 +19,8 @@ public class AnalysisController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SseEmitter> analyseAll(@RequestBody ConfigurationDTO configuration) {
+        configuration.setCreatedAt(null);
+
         try {
             SseEmitter sseEmitter = analysisService.analyse(configuration);
             return ResponseEntity.ok(sseEmitter);

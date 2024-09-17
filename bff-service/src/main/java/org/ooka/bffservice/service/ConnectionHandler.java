@@ -12,7 +12,7 @@ public class ConnectionHandler {
     private final Map<String, SseEmitter> connections = new HashMap<>();
 
     public SseEmitter addConnection(String id) {
-        SseEmitter sseEmitter = new SseEmitter();
+        SseEmitter sseEmitter = new SseEmitter(10000L);
         connections.put(id, sseEmitter);
         return sseEmitter;
     }

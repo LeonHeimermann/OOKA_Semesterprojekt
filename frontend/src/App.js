@@ -52,7 +52,7 @@ function App() {
         powerTransmission: PowerTransmission.TORSIONALLY_RESILLIANT_COUPLING,
         gearboxOption: GearboxOptions.REVERSE_REDUCTION
     });
-    const [startButtonEnabled, setStartButtonEnabled] = React.useState(true);
+    const [startButtonEnabled, setStartButtonEnabled] = React.useState(false);
     const [serviceStatus, setServiceStatus] = React.useState(internalStatus);
     const [activeServices, setActiveServices] = React.useState([]);
 
@@ -121,30 +121,40 @@ function App() {
             console.log("stream finished")
         }).catch(error => {
             console.error(error);
-        }).then(() => setStartButtonEnabled(true))
+        })
+        .then(() => {
+            Object.keys(internalStatus).forEach((service) => {
+                if(internalStatus[service] === Status.RUNNING) {
+                    internalStatus[service] = Status.ERROR
+                }
+            })
+
+            setServiceStatus(internalStatus);
+        })
+        .then(() => setStartButtonEnabled(true))
     }
 
     function updateStatus(result) {
         console.log(serviceStatus)
         switch (result.serviceId) {
             case "auxiliary-systems":
-                internalStatus = {...internalStatus, auxiliarySystems: result.result == "success" ? Status.SUCCESS : Status.ERROR}
+                internalStatus = {...internalStatus, auxiliarySystems: result.result === "success" ? Status.SUCCESS : Status.ERROR}
                 setServiceStatus(internalStatus)
                 break;
             case "engine-systems":
-                internalStatus = {...internalStatus, engineSystems: result.result == "success" ? Status.SUCCESS : Status.ERROR}
+                internalStatus = {...internalStatus, engineSystems: result.result === "success" ? Status.SUCCESS : Status.ERROR}
                 setServiceStatus(internalStatus)
                 break;
             case "control-systems":
-                internalStatus = {...internalStatus, controlSystems: result.result == "success" ? Status.SUCCESS : Status.ERROR}
+                internalStatus = {...internalStatus, controlSystems: result.result === "success" ? Status.SUCCESS : Status.ERROR}
                 setServiceStatus(internalStatus)
                 break;
             case "power-transmission":
-                internalStatus = {...internalStatus, powerTransmission: result.result == "success" ? Status.SUCCESS : Status.ERROR}
+                internalStatus = {...internalStatus, powerTransmission: result.result === "success" ? Status.SUCCESS : Status.ERROR}
                 setServiceStatus(internalStatus)
                 break;
             case "mounting-systems":
-                internalStatus = {...internalStatus, mountingSystems: result.result == "success" ? Status.SUCCESS : Status.ERROR}
+                internalStatus = {...internalStatus, mountingSystems: result.result === "success" ? Status.SUCCESS : Status.ERROR}
                 setServiceStatus(internalStatus)
                 break;
         }
@@ -154,9 +164,19 @@ function App() {
         fetch("http://localhost:8085/registry").then(async response => {
             const resJson = await response.json();
             const activeServicesTmp = resJson.map(service => service.id);
+
+            setStartButtonEnabled(
+                activeServicesTmp.includes("engine-systems-service") &&
+                activeServicesTmp.includes("power-transmission-service") &&
+                activeServicesTmp.includes("mounting-systems-service") &&
+                activeServicesTmp.includes("auxiliary-systems-service") &&
+                activeServicesTmp.includes("control-systems-service")
+            )
+
             setActiveServices(activeServicesTmp);
         }).catch(error => {
             console.error(error);
+            setStartButtonEnabled(false)
             setTimeout(updateActiveServices, 5000);
         });
     }
