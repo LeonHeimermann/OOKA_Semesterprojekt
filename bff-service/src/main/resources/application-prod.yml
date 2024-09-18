@@ -6,3 +6,5 @@ eureka:
 spring:
   kafka:
     bootstrap-servers: host.docker.internal:29092
+
+feignUrl: http://service-registry:8761

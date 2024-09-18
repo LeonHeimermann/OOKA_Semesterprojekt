@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@FeignClient(name = "service-registry")
+@FeignClient(name = "service-registry", url = "${feignUrl}")
 public interface RegistryClient {
 
     @GetMapping("/registered-apps")

@@ -16,3 +16,5 @@ management:
       base-path: /bff/actuator
       exposure:
         include: "*"
+
+feignUrl: http://localhost:8761
